@@ -2,123 +2,130 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>SpaceKids - Çocuklar için Uzay</title>
-
-<!-- 🌍 SEO -->
-<meta name="description" content="SpaceKids - Çocuklar için eğlenceli uzay ve astronomi öğrenme sitesi. Gezegenler ve oyunlarla uzayı keşfet!">
-<meta name="keywords" content="spacekids, uzay, çocuklar için uzay, gezegenler, astronomi, space games">
-<meta name="author" content="SpaceKids">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="index, follow">
-
-<!-- 📱 Social -->
-<meta property="og:title" content="SpaceKids - Uzayı Keşfet!">
-<meta property="og:description" content="Çocuklar için eğlenceli uzay oyunları ve gezegenler">
-<meta property="og:type" content="website">
+<title>SpaceKids Beta 2</title>
 
 <style>
-
-/* 🎨 GENEL TASARIM */
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #000814;
-    color: white;
-    text-align: center;
+body{
+    margin:0;
+    font-family:Arial;
+    background:#000814;
+    color:white;
+    text-align:center;
 }
 
-/* HEADER */
-header {
-    background: #003566;
-    padding: 15px;
-    font-size: 24px;
-    color: gold;
-    font-weight: bold;
+/* ÜST BAR */
+header{
+    background:#003566;
+    padding:15px;
+    font-size:22px;
+    color:gold;
 }
+
+/* SAYFALAR */
+.page{ display:none; padding:20px; }
+.active{ display:block; }
 
 /* KART */
-.card {
-    background: rgba(255,255,255,0.08);
-    margin: 10px;
-    padding: 15px;
-    border-radius: 12px;
-}
-
-/* BUTON */
-button {
-    padding: 10px;
-    margin: 5px;
-    border: none;
-    border-radius: 8px;
-    background: #00b4d8;
-    color: white;
-    cursor: pointer;
-}
-
-button:hover {
-    transform: scale(1.05);
-    transition: 0.2s;
+.card{
+    background:rgba(255,255,255,0.08);
+    margin:10px;
+    padding:15px;
+    border-radius:12px;
 }
 
 /* ALT MENÜ */
-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #001d3d;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
+nav{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:#001d3d;
+    display:flex;
+    justify-content:space-around;
+    padding:10px;
 }
 
-nav button {
-    background: none;
-    font-size: 14px;
+nav button{
+    background:none;
+    border:none;
+    color:white;
+    font-size:14px;
 }
-
 </style>
 </head>
 
 <body>
 
-<header>🚀 SPACEKIDS</header>
+<header>🚀 SPACEKIDS BETA 2</header>
 
 <!-- 🏠 ANA SAYFA -->
-<div id="home">
-    <div class="card">🌌 Uzayı keşfetmeye hazır mısın?</div>
+<div id="home" class="page active">
+    <div class="card">🌌 Uzayı keşfet!</div>
     <div class="card">⭐ Puan: <span id="score">0</span></div>
 </div>
 
 <!-- 🪐 GEZEGENLER -->
-<div class="card">
-<h2>🪐 Gezegenler</h2>
-<p>Mars - Kırmızı gezegen</p>
-<p>Jüpiter - En büyük gezegen</p>
-<p>Satürn - Halkaları var</p>
+<div id="planets" class="page">
+    <div class="card">Mars - Kırmızı gezegen</div>
+    <div class="card">Jüpiter - En büyük gezegen</div>
+    <div class="card">Satürn - Halkaları var</div>
 </div>
 
 <!-- 🎮 OYUN -->
-<div class="card">
-<h2>🎮 Oyun</h2>
-<p>En büyük gezegen?</p>
+<div id="games" class="page">
+    <div class="card">
+        <p>En büyük gezegen?</p>
+        <button onclick="answer(true)">Jüpiter</button>
+        <button onclick="answer(false)">Mars</button>
+    </div>
 
-<button onclick="answer(true)">Jüpiter</button>
-<button onclick="answer(false)">Mars</button>
+    <div class="card">
+        <p>Satürn’ün halkaları var mı?</p>
+        <button onclick="answer(true)">Evet</button>
+        <button onclick="answer(false)">Hayır</button>
+    </div>
 </div>
 
-<!-- ⚙️ JS -->
+<!-- 🧠 QUIZ -->
+<div id="quiz" class="page">
+    <div class="card">
+        <p>Dünya nedir?</p>
+        <button onclick="answer(true)">Gezegen</button>
+        <button onclick="answer(false)">Yıldız</button>
+    </div>
+
+    <div class="card">
+        <p>Güneş nedir?</p>
+        <button onclick="answer(true)">Yıldız</button>
+        <button onclick="answer(false)">Gezegen</button>
+    </div>
+</div>
+
+<!-- ALT MENÜ -->
+<nav>
+    <button onclick="show('home')">🏠</button>
+    <button onclick="show('planets')">🪐</button>
+    <button onclick="show('games')">🎮</button>
+    <button onclick="show('quiz')">🧠</button>
+</nav>
+
 <script>
 
 let score = 0;
 
+/* SAYFA DEĞİŞTİRME */
+function show(page){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(page).classList.add('active');
+}
+
+/* PUAN */
 function answer(correct){
     if(correct){
         score += 10;
         alert("Doğru! 🎉 +10 puan");
-    } else {
+    }else{
         alert("Yanlış 😅");
     }
-
     document.getElementById("score").innerText = score;
 }
 
@@ -126,3 +133,4 @@ function answer(correct){
 
 </body>
 </html>
+
