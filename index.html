@@ -2,153 +2,238 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>SpacePioneers</title>
+<title>SpaceKids</title>
 
 <style>
 body{
-    font-family: Arial;
+    font-family:Arial;
+    background:#0b1026;
+    color:white;
     text-align:center;
 }
 
-.nav-btn{
-    font-size:24px;
-    padding:15px 30px;
-    margin:10px;
+.page{display:none;}
+.active{display:block;}
+
+button{
+    padding:12px 20px;
+    font-size:18px;
+    margin:6px;
+    cursor:pointer;
 }
 
 .planet{
-    width:120px;
+    width:90px;
+    margin:5px;
     cursor:pointer;
-    margin:10px;
 }
 
 .info{
     display:none;
-    border:1px solid black;
+    background:white;
+    color:black;
     padding:10px;
-    margin:10px;
-}
-
-.question{
-    display:none;
-}
-
-.active{
-    display:block;
+    margin:10px auto;
+    width:250px;
+    border-radius:10px;
 }
 </style>
 </head>
+
 <body>
 
-<h1>🚀 SpacePioneers</h1>
+<!-- 🏠 HOME -->
+<div id="home" class="page active">
 
-<button class="nav-btn">◀ Önceki Sayfa</button>
-<button class="nav-btn">Sonraki Sayfa ▶</button>
+<h1>🚀 SpaceKids</h1>
+
+<h2>Puan: <span id="score">0</span></h2>
+<h3 id="medal">😢 Henüz yok</h3>
+
+<button onclick="show('solar')">☀️ Güneş Sistemi</button>
+<button onclick="show('game')">🎮 Oyun</button>
+<button onclick="show('brain')">✅❌ Doğru-Yanlış</button>
+
+</div>
+
+<!-- ☀️ SOLAR -->
+<div id="solar" class="page">
 
 <h2>☀️ Güneş Sistemi</h2>
 
-<img src="sun.png" width="250">
+<img src="https://solarsystem.nasa.gov/system/feature_items/images/1336_sun.png" width="180">
 
-<div>
-    <img src="mercury.png" class="planet"
-    onclick="toggleInfo('mercury')">
+<br>
 
-    <div id="mercury" class="info">
-        <h3>Merkür</h3>
-        <p>Güneş'e en yakın gezegendir.</p>
-    </div>
+<img class="planet" src="https://solarsystem.nasa.gov/system/feature_items/images/18_mercury_new.png" onclick="toggle('mercury')">
+<div id="mercury" class="info">Merkür: En yakın gezegen</div>
 
-    <img src="venus.png" class="planet"
-    onclick="toggleInfo('venus')">
+<img class="planet" src="https://solarsystem.nasa.gov/system/feature_items/images/27_venus_jg.png" onclick="toggle('venus')">
+<div id="venus" class="info">Venüs: En sıcak gezegen</div>
 
-    <div id="venus" class="info">
-        <h3>Venüs</h3>
-        <p>En sıcak gezegendir.</p>
-    </div>
+<img class="planet" src="https://solarsystem.nasa.gov/system/feature_items/images/17_earth.png" onclick="toggle('earth')">
+<div id="earth" class="info">Dünya: Yaşam var</div>
+
+<img class="planet" src="https://solarsystem.nasa.gov/system/feature_items/images/19_mars.png" onclick="toggle('mars')">
+<div id="mars" class="info">Mars: Kızıl gezegen</div>
+
+<img class="planet" src="https://solarsystem.nasa.gov/system/feature_items/images/16_jupiter_new.png" onclick="toggle('jupiter')">
+<div id="jupiter" class="info">Jüpiter: En büyük</div>
+
+<img class="planet" src="https://solarsystem.nasa.gov/system/feature_items/images/28_saturn.png" onclick="toggle('saturn')">
+<div id="saturn" class="info">Satürn: Halkalı</div>
+
+<img class="planet" src="https://solarsystem.nasa.gov/system/feature_items/images/29_uranus.png" onclick="toggle('uranus')">
+<div id="uranus" class="info">Uranüs: Yatık döner</div>
+
+<img class="planet" src="https://solarsystem.nasa.gov/system/feature_items/images/30_neptune.png" onclick="toggle('neptune')">
+<div id="neptune" class="info">Neptün: En uzak</div>
+
+<br>
+<button onclick="show('home')">🏠 Ana Sayfa</button>
 </div>
 
-<hr>
+<!-- 🎮 GAME -->
+<div id="game" class="page">
 
-<h2>🎮 Oyun Bölümü</h2>
+<h2>🎮 Oyun</h2>
+<p>Puan: <span id="score2">0</span></p>
+<p>İlerleme: <span id="gprog">1</span>/10</p>
 
-<p>Puan: <span id="score">0</span></p>
+<div id="gq"></div>
 
-<div id="q1" class="question active">
-    <p>1) Dünya'nın uydusu nedir?</p>
-    <button onclick="answer(true,1)">Ay</button>
-    <button onclick="answer(false,1)">Mars</button>
+<button onclick="show('home')">🏠 Ana</button>
 </div>
 
-<div id="q2" class="question">
-    <p>2) Güneş Sistemi'nin en büyük gezegeni hangisidir?</p>
-    <button onclick="answer(true,2)">Jüpiter</button>
-    <button onclick="answer(false,2)">Merkür</button>
-</div>
+<!-- 🧠 TRUE FALSE -->
+<div id="brain" class="page">
 
-<div id="q3" class="question">
-    <p>3) Satürn'ün en belirgin özelliği nedir?</p>
-    <button onclick="answer(true,3)">Halkaları</button>
-    <button onclick="answer(false,3)">Mavi rengi</button>
-</div>
+<h2>✅❌ Doğru-Yanlış</h2>
+<p>Puan: <span id="score3">0</span></p>
+<p>İlerleme: <span id="bprog">1</span>/10</p>
 
-<hr>
+<div id="bq"></div>
 
-<h2>🧠 Beyin Bölümü</h2>
-
-<div>
-    <p>Dünya Güneş'in etrafında döner.</p>
-    <button onclick="brain(true)">Doğru</button>
-    <button onclick="brain(false)">Yanlış</button>
+<button onclick="show('home')">🏠 Ana</button>
 </div>
 
 <script>
-let score = 0;
 
-function updateScore(){
-    document.getElementById("score").textContent = score;
+let score = localStorage.getItem("score") || 0;
+score = Number(score);
+
+let gIndex = 0;
+let bIndex = 0;
+
+function save(){
+localStorage.setItem("score",score);
+update();
 }
 
-function toggleInfo(id){
-    let info = document.getElementById(id);
+function update(){
+document.getElementById("score").innerText = score;
+document.getElementById("score2").innerText = score;
+document.getElementById("score3").innerText = score;
 
-    if(info.style.display==="block"){
-        info.style.display="none";
-    }else{
-        info.style.display="block";
-    }
+let medal = document.getElementById("medal");
+
+if(score >= 150) medal.innerText="🥇 Altın";
+else if(score >= 100) medal.innerText="🥈 Gümüş";
+else if(score >= 50) medal.innerText="🥉 Bronz";
+else medal.innerText="😢 Yok";
 }
 
-function answer(correct, q){
-    if(correct){
-        score += 10;
-
-        document.getElementById("q"+q).style.display="none";
-
-        let next =
-        document.getElementById("q"+(q+1));
-
-        if(next){
-            next.style.display="block";
-        }
-    }else{
-        score -= 15;
-        alert("Yanlış cevap! -15 puan");
-    }
-
-    updateScore();
+function show(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
 }
 
-function brain(isCorrect){
-    if(isCorrect){
-        score += 10;
-        alert("Doğru! +10 puan");
-    }else{
-        score -= 15;
-        alert("Yanlış! -15 puan");
-    }
-
-    updateScore();
+function toggle(id){
+let e = document.getElementById(id);
+e.style.display = (e.style.display=="block")?"none":"block";
 }
+
+/* 🎮 GAME QUESTIONS */
+const gq = [
+{q:"Dünya'nın uydusu?",a:"Ay"},
+{q:"En büyük gezegen?",a:"Jüpiter"},
+{q:"Kızıl gezegen?",a:"Mars"},
+{q:"Halkalı gezegen?",a:"Satürn"},
+{q:"En sıcak gezegen?",a:"Venüs"},
+{q:"En uzak gezegen?",a:"Neptün"},
+{q:"Güneş nedir?",a:"Yıldız"},
+{q:"Dünya kaçıncı gezegen?",a:"3"},
+{q:"En küçük gezegen?",a:"Merkür"},
+{q:"En zor soru: ışık hızına en yakın şey?",a:"Foton"}
+];
+
+/* 🧠 TRUE FALSE */
+const bq = [
+{q:"Dünya Güneş etrafında döner",a:true},
+{q:"Ay gezegendir",a:false},
+{q:"Mars kırmızı gezegendir",a:true},
+{q:"Güneş gezegendir",a:false},
+{q:"Jüpiter en büyük gezegen",a:true},
+{q:"Satürn halkasızdır",a:false},
+{q:"Neptün en uzaktır",a:true},
+{q:"Venüs en soğuktur",a:false},
+{q:"Dünya 1 uyduludur",a:true},
+{q:"Güneş yıldızdır",a:true}
+];
+
+function loadGame(){
+let q = gq[gIndex];
+document.getElementById("gq").innerHTML=`
+<h3>${q.q}</h3>
+<button onclick="gans('${q.a}',this.innerText)">Ay</button>
+<button onclick="gans('${q.a}','Jüpiter')">Jüpiter</button>
+`;
+
+document.getElementById("gprog").innerText = gIndex+1;
+}
+
+function gans(correct,ans){
+if(ans==correct){
+score+=10;
+gIndex++;
+if(gIndex<10) loadGame();
+save();
+}
+else{
+score-=15;
+save();
+}
+}
+
+function loadBrain(){
+let q = bq[bIndex];
+
+document.getElementById("bq").innerHTML=`
+<h3>${q.q}</h3>
+<button onclick="bans(${q.a},true)">Doğru</button>
+<button onclick="bans(${q.a},false)">Yanlış</button>
+`;
+
+document.getElementById("bprog").innerText = bIndex+1;
+}
+
+function bans(correct,ans){
+if(ans==correct){
+score+=10;
+bIndex++;
+if(bIndex<10) loadBrain();
+save();
+}
+else{
+score-=15;
+save();
+}
+}
+
+loadGame();
+loadBrain();
+update();
+
 </script>
 
 </body>
