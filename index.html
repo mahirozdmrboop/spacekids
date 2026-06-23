@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>SpaceKids - Çocuklar için Uzay</title>
+
+<!-- 🌍 SEO -->
+<meta name="description" content="SpaceKids - Çocuklar için eğlenceli uzay ve astronomi öğrenme sitesi. Gezegenler ve oyunlarla uzayı keşfet!">
+<meta name="keywords" content="spacekids, uzay, çocuklar için uzay, gezegenler, astronomi, space games">
+<meta name="author" content="SpaceKids">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+
+<!-- 📱 Social -->
+<meta property="og:title" content="SpaceKids - Uzayı Keşfet!">
+<meta property="og:description" content="Çocuklar için eğlenceli uzay oyunları ve gezegenler">
+<meta property="og:type" content="website">
+
+<style>
+
+/* 🎨 GENEL TASARIM */
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #000814;
+    color: white;
+    text-align: center;
+}
+
+/* HEADER */
+header {
+    background: #003566;
+    padding: 15px;
+    font-size: 24px;
+    color: gold;
+    font-weight: bold;
+}
+
+/* KART */
+.card {
+    background: rgba(255,255,255,0.08);
+    margin: 10px;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+/* BUTON */
+button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    background: #00b4d8;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+}
+
+/* ALT MENÜ */
+nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #001d3d;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+nav button {
+    background: none;
+    font-size: 14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>🚀 SPACEKIDS</header>
+
+<!-- 🏠 ANA SAYFA -->
+<div id="home">
+    <div class="card">🌌 Uzayı keşfetmeye hazır mısın?</div>
+    <div class="card">⭐ Puan: <span id="score">0</span></div>
+</div>
+
+<!-- 🪐 GEZEGENLER -->
+<div class="card">
+<h2>🪐 Gezegenler</h2>
+<p>Mars - Kırmızı gezegen</p>
+<p>Jüpiter - En büyük gezegen</p>
+<p>Satürn - Halkaları var</p>
+</div>
+
+<!-- 🎮 OYUN -->
+<div class="card">
+<h2>🎮 Oyun</h2>
+<p>En büyük gezegen?</p>
+
+<button onclick="answer(true)">Jüpiter</button>
+<button onclick="answer(false)">Mars</button>
+</div>
+
+<!-- ⚙️ JS -->
+<script>
+
+let score = 0;
+
+function answer(correct){
+    if(correct){
+        score += 10;
+        alert("Doğru! 🎉 +10 puan");
+    } else {
+        alert("Yanlış 😅");
+    }
+
+    document.getElementById("score").innerText = score;
+}
+
+</script>
+
+</body>
+</html>
