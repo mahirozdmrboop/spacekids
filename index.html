@@ -2,153 +2,257 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>SpacePioneers</title>
+<title>SpaceKids</title>
 
 <style>
 body{
-    font-family: Arial;
+    font-family:Arial;
     text-align:center;
+    background:#0b1026;
+    color:white;
 }
 
-.nav-btn{
-    font-size:24px;
-    padding:15px 30px;
-    margin:10px;
-}
-
-.planet{
-    width:120px;
-    cursor:pointer;
-    margin:10px;
-}
-
-.info{
-    display:none;
-    border:1px solid black;
-    padding:10px;
-    margin:10px;
-}
-
-.question{
+.page{
     display:none;
 }
 
 .active{
     display:block;
 }
+
+button{
+    padding:15px 30px;
+    font-size:20px;
+    margin:10px;
+    cursor:pointer;
+}
+
+.planet{
+    width:120px;
+    margin:10px;
+    cursor:pointer;
+}
+
+.info{
+    display:none;
+    background:white;
+    color:black;
+    padding:10px;
+    margin:10px auto;
+    width:300px;
+}
 </style>
 </head>
 <body>
 
-<h1>🚀 SpacePioneers</h1>
+<!-- ANA SAYFA -->
 
-<button class="nav-btn">◀ Önceki Sayfa</button>
-<button class="nav-btn">Sonraki Sayfa ▶</button>
+<div id="home" class="page active">
 
-<h2>☀️ Güneş Sistemi</h2>
+<h1>🚀 SpaceKids</h1>
+
+<h2>Puan: <span id="score">0</span></h2>
+
+<h2 id="medal">Henüz madalya yok</h2>
+
+<button onclick="showPage('solar')">
+☀️ Güneş Sistemi
+</button>
+
+<button onclick="showPage('game')">
+🎮 Oyun
+</button>
+
+<button onclick="showPage('brain')">
+🧠 Beyin
+</button>
+
+</div>
+
+<!-- GÜNEŞ SİSTEMİ -->
+
+<div id="solar" class="page">
+
+<h1>☀️ Güneş Sistemi</h1>
 
 <img src="sun.png" width="250">
 
-<div>
-    <img src="mercury.png" class="planet"
-    onclick="toggleInfo('mercury')">
+<br><br>
 
-    <div id="mercury" class="info">
-        <h3>Merkür</h3>
-        <p>Güneş'e en yakın gezegendir.</p>
-    </div>
+<img src="earth.png"
+class="planet"
+onclick="togglePlanet('earth')">
 
-    <img src="venus.png" class="planet"
-    onclick="toggleInfo('venus')">
+<div id="earth" class="info">
+🌍 Dünya
 
-    <div id="venus" class="info">
-        <h3>Venüs</h3>
-        <p>En sıcak gezegendir.</p>
-    </div>
+<br>
+Güneş'ten 3. gezegendir.
+<br>
+1 uydusu vardır.
 </div>
 
-<hr>
+<br>
 
-<h2>🎮 Oyun Bölümü</h2>
+<button onclick="showPage('home')">
+🏠 Ana Sayfa
+</button>
 
-<p>Puan: <span id="score">0</span></p>
-
-<div id="q1" class="question active">
-    <p>1) Dünya'nın uydusu nedir?</p>
-    <button onclick="answer(true,1)">Ay</button>
-    <button onclick="answer(false,1)">Mars</button>
 </div>
 
-<div id="q2" class="question">
-    <p>2) Güneş Sistemi'nin en büyük gezegeni hangisidir?</p>
-    <button onclick="answer(true,2)">Jüpiter</button>
-    <button onclick="answer(false,2)">Merkür</button>
+<!-- OYUN -->
+
+<div id="game" class="page">
+
+<h1>🎮 Oyun</h1>
+
+<div id="gameQuestion">
+1. Dünya'nın uydusu nedir?
+<br><br>
+
+<button onclick="answer(true)">
+Ay
+</button>
+
+<button onclick="answer(false)">
+Mars
+</button>
 </div>
 
-<div id="q3" class="question">
-    <p>3) Satürn'ün en belirgin özelliği nedir?</p>
-    <button onclick="answer(true,3)">Halkaları</button>
-    <button onclick="answer(false,3)">Mavi rengi</button>
+<button onclick="showPage('home')">
+🏠 Ana Sayfa
+</button>
+
 </div>
 
-<hr>
+<!-- BEYİN -->
 
-<h2>🧠 Beyin Bölümü</h2>
+<div id="brain" class="page">
 
-<div>
-    <p>Dünya Güneş'in etrafında döner.</p>
-    <button onclick="brain(true)">Doğru</button>
-    <button onclick="brain(false)">Yanlış</button>
+<h1>🧠 Beyin</h1>
+
+<div id="brainQuestion">
+Dünya Güneş'in etrafında döner.
+
+<br><br>
+
+<button onclick="brainAnswer(true)">
+Doğru
+</button>
+
+<button onclick="brainAnswer(false)">
+Yanlış
+</button>
+</div>
+
+<button onclick="showPage('home')">
+🏠 Ana Sayfa
+</button>
+
 </div>
 
 <script>
+
 let score = 0;
 
+function showPage(page){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document
+.getElementById(page)
+.classList.add("active");
+
+}
+
+function togglePlanet(id){
+
+let planet =
+document.getElementById(id);
+
+planet.style.display =
+planet.style.display==="block"
+? "none"
+: "block";
+
+}
+
 function updateScore(){
-    document.getElementById("score").textContent = score;
+
+document
+.getElementById("score")
+.innerText = score;
+
+let medal =
+document.getElementById("medal");
+
+if(score >= 150){
+
+medal.innerHTML =
+"🥇 Altın Madalya";
+
 }
 
-function toggleInfo(id){
-    let info = document.getElementById(id);
+else if(score >= 100){
 
-    if(info.style.display==="block"){
-        info.style.display="none";
-    }else{
-        info.style.display="block";
-    }
+medal.innerHTML =
+"🥈 Gümüş Madalya";
+
 }
 
-function answer(correct, q){
-    if(correct){
-        score += 10;
+else if(score >= 50){
 
-        document.getElementById("q"+q).style.display="none";
+medal.innerHTML =
+"🥉 Bronz Madalya";
 
-        let next =
-        document.getElementById("q"+(q+1));
-
-        if(next){
-            next.style.display="block";
-        }
-    }else{
-        score -= 15;
-        alert("Yanlış cevap! -15 puan");
-    }
-
-    updateScore();
 }
 
-function brain(isCorrect){
-    if(isCorrect){
-        score += 10;
-        alert("Doğru! +10 puan");
-    }else{
-        score -= 15;
-        alert("Yanlış! -15 puan");
-    }
+else{
 
-    updateScore();
+medal.innerHTML =
+"😢 Maalesef bir şey yok";
+
 }
+
+}
+
+function answer(correct){
+
+if(correct){
+
+score += 10;
+alert("Doğru! +10");
+
+}else{
+
+score -= 15;
+alert("Yanlış! -15");
+
+}
+
+updateScore();
+
+}
+
+function brainAnswer(correct){
+
+if(correct){
+
+score += 10;
+alert("Doğru! +10");
+
+}else{
+
+score -= 15;
+alert("Yanlış! -15");
+
+}
+
+updateScore();
+
+}
+
 </script>
 
 </body>
