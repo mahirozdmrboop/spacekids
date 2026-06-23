@@ -2,135 +2,154 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>SpaceKids Beta 2</title>
+<title>SpacePioneers</title>
 
 <style>
 body{
-    margin:0;
-    font-family:Arial;
-    background:#000814;
-    color:white;
+    font-family: Arial;
     text-align:center;
 }
 
-/* ÜST BAR */
-header{
-    background:#003566;
-    padding:15px;
-    font-size:22px;
-    color:gold;
-}
-
-/* SAYFALAR */
-.page{ display:none; padding:20px; }
-.active{ display:block; }
-
-/* KART */
-.card{
-    background:rgba(255,255,255,0.08);
+.nav-btn{
+    font-size:24px;
+    padding:15px 30px;
     margin:10px;
-    padding:15px;
-    border-radius:12px;
 }
 
-/* ALT MENÜ */
-nav{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    background:#001d3d;
-    display:flex;
-    justify-content:space-around;
+.planet{
+    width:120px;
+    cursor:pointer;
+    margin:10px;
+}
+
+.info{
+    display:none;
+    border:1px solid black;
     padding:10px;
+    margin:10px;
 }
 
-nav button{
-    background:none;
-    border:none;
-    color:white;
-    font-size:14px;
+.question{
+    display:none;
+}
+
+.active{
+    display:block;
 }
 </style>
 </head>
-
 <body>
 
-<header>🚀 SPACEKIDS BETA 2</header>
+<h1>🚀 SpacePioneers</h1>
 
-<!-- 🏠 ANA SAYFA -->
-<div id="home" class="page active">
-    <div class="card">🌌 Uzayı keşfet!</div>
-    <div class="card">⭐ Puan: <span id="score">0</span></div>
-</div>
+<button class="nav-btn">◀ Önceki Sayfa</button>
+<button class="nav-btn">Sonraki Sayfa ▶</button>
 
-<!-- 🪐 GEZEGENLER -->
-<div id="planets" class="page">
-    <div class="card">Mars - Kırmızı gezegen</div>
-    <div class="card">Jüpiter - En büyük gezegen</div>
-    <div class="card">Satürn - Halkaları var</div>
-</div>
+<h2>☀️ Güneş Sistemi</h2>
 
-<!-- 🎮 OYUN -->
-<div id="games" class="page">
-    <div class="card">
-        <p>En büyük gezegen?</p>
-        <button onclick="answer(true)">Jüpiter</button>
-        <button onclick="answer(false)">Mars</button>
+<img src="sun.png" width="250">
+
+<div>
+    <img src="mercury.png" class="planet"
+    onclick="toggleInfo('mercury')">
+
+    <div id="mercury" class="info">
+        <h3>Merkür</h3>
+        <p>Güneş'e en yakın gezegendir.</p>
     </div>
 
-    <div class="card">
-        <p>Satürn’ün halkaları var mı?</p>
-        <button onclick="answer(true)">Evet</button>
-        <button onclick="answer(false)">Hayır</button>
+    <img src="venus.png" class="planet"
+    onclick="toggleInfo('venus')">
+
+    <div id="venus" class="info">
+        <h3>Venüs</h3>
+        <p>En sıcak gezegendir.</p>
     </div>
 </div>
 
-<!-- 🧠 QUIZ -->
-<div id="quiz" class="page">
-    <div class="card">
-        <p>Dünya nedir?</p>
-        <button onclick="answer(true)">Gezegen</button>
-        <button onclick="answer(false)">Yıldız</button>
-    </div>
+<hr>
 
-    <div class="card">
-        <p>Güneş nedir?</p>
-        <button onclick="answer(true)">Yıldız</button>
-        <button onclick="answer(false)">Gezegen</button>
-    </div>
+<h2>🎮 Oyun Bölümü</h2>
+
+<p>Puan: <span id="score">0</span></p>
+
+<div id="q1" class="question active">
+    <p>1) Dünya'nın uydusu nedir?</p>
+    <button onclick="answer(true,1)">Ay</button>
+    <button onclick="answer(false,1)">Mars</button>
 </div>
 
-<!-- ALT MENÜ -->
-<nav>
-    <button onclick="show('home')">🏠</button>
-    <button onclick="show('planets')">🪐</button>
-    <button onclick="show('games')">🎮</button>
-    <button onclick="show('quiz')">🧠</button>
-</nav>
+<div id="q2" class="question">
+    <p>2) Güneş Sistemi'nin en büyük gezegeni hangisidir?</p>
+    <button onclick="answer(true,2)">Jüpiter</button>
+    <button onclick="answer(false,2)">Merkür</button>
+</div>
+
+<div id="q3" class="question">
+    <p>3) Satürn'ün en belirgin özelliği nedir?</p>
+    <button onclick="answer(true,3)">Halkaları</button>
+    <button onclick="answer(false,3)">Mavi rengi</button>
+</div>
+
+<hr>
+
+<h2>🧠 Beyin Bölümü</h2>
+
+<div>
+    <p>Dünya Güneş'in etrafında döner.</p>
+    <button onclick="brain(true)">Doğru</button>
+    <button onclick="brain(false)">Yanlış</button>
+</div>
 
 <script>
-
 let score = 0;
 
-/* SAYFA DEĞİŞTİRME */
-function show(page){
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById(page).classList.add('active');
+function updateScore(){
+    document.getElementById("score").textContent = score;
 }
 
-/* PUAN */
-function answer(correct){
+function toggleInfo(id){
+    let info = document.getElementById(id);
+
+    if(info.style.display==="block"){
+        info.style.display="none";
+    }else{
+        info.style.display="block";
+    }
+}
+
+function answer(correct, q){
     if(correct){
         score += 10;
-        alert("Doğru! 🎉 +10 puan");
+
+        document.getElementById("q"+q).style.display="none";
+
+        let next =
+        document.getElementById("q"+(q+1));
+
+        if(next){
+            next.style.display="block";
+        }
     }else{
-        alert("Yanlış 😅");
+        score -= 15;
+        alert("Yanlış cevap! -15 puan");
     }
-    document.getElementById("score").innerText = score;
+
+    updateScore();
 }
 
+function brain(isCorrect){
+    if(isCorrect){
+        score += 10;
+        alert("Doğru! +10 puan");
+    }else{
+        score -= 15;
+        alert("Yanlış! -15 puan");
+    }
+
+    updateScore();
+}
 </script>
 
 </body>
 </html>
-
